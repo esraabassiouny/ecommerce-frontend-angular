@@ -1,0 +1,85 @@
+<!-- <header>
+  <nav class="bg-gray-100 border-gray-200 px-4 lg:px-6 py-2.5">
+    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+      <div class="flex items-center lg:order-2">
+        <a
+          href="#"
+          class="text-black hover:bg-gray-200 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
+        >
+          Log in
+        </a>
+        <a
+          href="#"
+          class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
+        >
+          Get started
+        </a>
+      </div>
+
+      <div
+        class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+        id="mobile-menu-2"
+      >
+        <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+          <li>
+            <div
+              class="block py-2 pr-4 pl-3 text-black rounded hover:text-blue-600"
+            >
+              Home
+            </div>
+          </li>
+          <li>
+            <a
+                routerLink="/cart"
+                routerLinkActive="text-blue-600 font-bold"
+                class="block py-2 pr-4 pl-3 text-black rounded hover:text-blue-600"
+            >
+              Cart
+          </a>
+          </li>
+        </ul>
+      </div>
+        <p class="text-green-600 mt-3 font-semibold text-2xl">
+            {{ clientName }} 
+        </p>
+    </div>
+  </nav>
+</header> -->
+
+
+
+<header
+  class="shadow border-b border-gray-200 fixed top-0 left-0 w-full z-50 transition-transform duration-300"
+  [ngClass]="{ '-translate-y-full': isHidden, 'translate-y-0': !isHidden }"
+>
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="text-xl font-bold text-indigo-600">
+      MyShop
+    </div>
+
+    <nav class="flex gap-6 font-medium">
+      <div
+        routerLink="/"
+        class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600"
+      >
+        Home
+      </div>
+      <div
+        routerLink="/cart"
+        class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600"
+      >
+        Cart
+      </div>
+        <div
+        routerLink="/orders"
+        class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600"
+      >
+        Orders
+      </div>
+    </nav>
+
+    <div class="text-gray-600 font-semibold">
+      Welcome, Esraa
+    </div>
+  </div>
+</header>

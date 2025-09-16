@@ -1,0 +1,15 @@
+<div class="bg-white rounded-lg p-6">
+    <div class="flex justify-between items-center pb-4 border-b border-gray-700 mb-6">
+          <div>
+            <h2 class="text-xl font-semibold text-gray-200">Order #{{ order._id }}</h2>
+            <p class="text-sm text-gray-400">Delivered on January 22, 2021</p>
+          </div>
+          <div class="flex space-x-4 text-sm">
+            <a href="#" class="text-indigo-400 hover:text-indigo-600">Manage order</a>
+            <a href="#" class="text-indigo-400 hover:text-indigo-600">View Invoice</a>
+          </div>
+    </div> 
+    @for(item of order.items;track item.product){
+    <app-order-detail-item [item]="item"></app-order-detail-item>
+    }      
+</div>

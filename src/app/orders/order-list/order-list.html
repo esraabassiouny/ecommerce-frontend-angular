@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<body class="bg-white ">
+
+  <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 text-black font-sans pt-25">
+    <div class="max-w-4xl mx-auto mb-10 text-center">
+      <h1 class="text-4xl font-bold">Your Orders</h1>
+      <p class="mt-2 text-lg text-gray-400">
+        Check the status of recent orders, manage returns, and discover similar products.
+      </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto space-y-8">
+      @for(order of this.orders; track order._id){  
+      <app-order-card [order]="order"></app-order-card>
+      <app-order-card [order]="order"></app-order-card>
+      }
+    </div>
+  </div>
+
+</body>
+</html>

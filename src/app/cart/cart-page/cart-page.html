@@ -1,0 +1,44 @@
+<div class="max-w-4xl mx-auto px-6 py-10 pt-25">
+  <h1 class="text-3xl font-bold mb-16">Shopping Cart</h1>
+
+  <div class="mt-12">
+     @for(item of cartItems;track item.id){
+    <app-cart-item [item]="item" (remove)="removeItem($event)"></app-cart-item>
+     }
+     <button (click)="resetAllProducts()" class="mb-4 px-4 py-2 bg-indigo-600 text-white rounded">
+      Reset Quantities
+    </button>
+    <div class="py-6 border-t border-gray-300">
+      <div class="mt-10 pt-6 space-y-3">
+        <div class="flex justify-between text-gray-700">
+          <span>Subtotal</span>
+          <span>$99.00</span>
+        </div>
+        <div class="flex justify-between text-gray-700">
+          <span>Shipping</span>
+          <span>$5.00</span>
+        </div>
+        <div class="flex justify-between text-gray-700">
+          <span>Tax</span>
+          <span>$8.32</span>
+        </div>
+        <div class="flex justify-between font-semibold text-lg">
+          <span>Order total</span>
+          <span>$112.32</span>
+        </div>
+      </div>
+
+      <!-- Checkout -->
+      <div class="mt-6">
+        <button
+          class="w-full bg-indigo-700 text-white py-3 rounded-lg hover:bg-indigo-500"
+        >
+          Checkout
+        </button>
+        <p class="text-center text-indigo-600 mt-3">
+          or <a href="#" class="underline">Continue Shopping →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
