@@ -1,0 +1,16 @@
+@if (user) {
+  <div class="p-4 bg-white rounded shadow">
+    <h2>Edit Profile</h2>
+    <form (ngSubmit)="updateProfile()">
+      <label>Name:</label>
+      <input [(ngModel)]="user.name" name="name" />
+      <label>Email:</label>
+      <input [(ngModel)]="user.email" name="email" />
+      <button type="submit">Update</button>
+    </form>
+  </div>
+} @else {
+  <div class="p-4 bg-white rounded shadow">
+    <h2>Loading...</h2>
+  </div>
+}
