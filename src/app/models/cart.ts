@@ -25,13 +25,22 @@ export interface CartProduct {
   inStock: boolean;
 }
 
-export class Cart{
-    constructor
-    (
-        public userId: string,
-        public items: CartProduct[],
-        public totalPrice: number,
-    ) {}
-    
+
+
+// Represents a single item in the cart
+export interface CartItem {
+  product: string;      // MongoDB ObjectId as string (ref: Product)
+  quantity: number;
+  price: number;
 }
 
+// Represents the entire cart
+export class Cart {
+  constructor(
+    public id:string,
+    public userId: string,       // ObjectId of the user
+    public items: CartItem[],    // Array of CartItem
+    public totalPrice: number,   // Calculated total
+    public updatedAt?: Date      // Optional, since backend auto-generates it
+  ) {}
+}

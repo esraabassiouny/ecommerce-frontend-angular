@@ -15,7 +15,6 @@ export class ServiceOrder{
     getOrdersByUserId(id: any): Observable<Order[]>
     {
         const orders = this.http.get<Order[]>(`http://localhost:5000/api/orders/${id}`); 
-        console.log(orders);
         return orders;
     }
 }
