@@ -28,7 +28,7 @@ export class ProfileService {
     return this.http.delete<{ message: string }>(this.apiUrl);
   }
 
-  changePassword(passwords: { current: string; new: string }): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/password`, passwords);
+  changePassword(data: { currentPassword: string; newPassword: string }): Observable<any> {
+  return this.http.patch(`${this.apiUrl}/password`, data);
   }
 }

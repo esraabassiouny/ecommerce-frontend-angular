@@ -15,12 +15,10 @@ export class Logout {
 
   onLogout() {
     this.authService.logout().subscribe({
-      next: () => {
-        console.log('Logged out');
-        localStorage.removeItem('token');
-      },
-      error: (err) => console.error('Logout failed', err)
+      next: () => console.log('Logged out'),
+      error: (err) => console.error('Logout failed', err),
     });
   }
+
 
 }
