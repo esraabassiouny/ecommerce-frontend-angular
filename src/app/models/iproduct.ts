@@ -1,10 +1,14 @@
+import { Icategory } from "./iCategory";
+
 export interface Iproduct {
-  _id: number;
+  _id: string;
   name: string;
-  description: string;
   price: number;
   stock: number;
+  description: string;
   images: string[];
-  categoryId: number;
-  isFeatured:boolean;
+  categoryId: string | Icategory;
+  isFeatured?: boolean;
 }
+
+

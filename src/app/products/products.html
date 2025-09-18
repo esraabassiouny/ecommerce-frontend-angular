@@ -1,40 +1,34 @@
 <div class="container mx-auto px-6 py-12">
-  <h1
-    class="text-4xl font-extrabold text-center text-indigo-600 mb-12 tracking-wide"
-  >
+  <h1 class="text-4xl font-extrabold text-center text-indigo-600 mb-12">
     Our Products
   </h1>
 
+  <!-- Filter & Add -->
   <div
     class="flex flex-col sm:flex-row justify-between items-center bg-gray-50 p-6 rounded-2xl shadow mb-10"
   >
-    <!-- Filter Section -->
     <div class="flex items-center gap-3 w-full sm:w-auto mb-4 sm:mb-0">
-      <label
-        for="categorySelect"
-        class="text-lg font-semibold text-gray-700 whitespace-nowrap"
+      <label for="categorySelect" class="text-lg font-semibold text-gray-700"
+        >Filter by Category:</label
       >
-        Filter by Category:
-      </label>
+
       <select
-  id="categorySelect"
-  class="px-6 py-3 text-lg rounded-xl border-2 border-indigo-500 bg-white text-indigo-700 font-semibold shadow-md hover:border-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300"
-  [(ngModel)]="selectedCatId"
-  (ngModelChange)="filterProducts()"
->
-  <option selected value="0">All</option>
-@for (category of categories; track category.id) {
-  <option [value]="category.id">{{ category.name }}</option>
+        id="categorySelect"
+        class="px-6 py-3 text-lg rounded-xl border-2 border-indigo-500 bg-white text-indigo-700 font-semibold shadow-md"
+        [(ngModel)]="selectedCatId"
+        (ngModelChange)="filterProducts()"
+      >
+
+       <option value="0">All</option>
+@for (category of categories; track category._id) {
+  <option [value]="category._id">{{ category.name }}</option>
 }
-
-</select>
-
+      </select>
     </div>
 
-    <!-- Add Product Button -->
     <div class="flex justify-end">
       <button
-        class="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:bg-green-700 transition duration-300"
+        class="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:bg-green-700"
         (click)="startAddProduct()"
       >
         + Add Product
@@ -42,170 +36,158 @@
     </div>
   </div>
 
-
-
   <!-- Product Form -->
-  <div *ngIf="showForm" class="mb-8 bg-white shadow-lg p-6 rounded-2xl">
-    <h2 class="text-2xl font-bold mb-4 text-indigo-600">
-      {{ editingProduct ? "Edit Product" : "Add New Product" }}
-    </h2>
-
-    <form (ngSubmit)="saveProduct()" #productForm="ngForm">
-      <input
-        type="text"
-        [(ngModel)]="formProduct.name"
-        name="name"
-        placeholder="Product Name"
-        required
-        class="w-full mb-3 p-3 border rounded-lg"
-      />
-
-      <input
-        type="number"
-        [(ngModel)]="formProduct.price"
-        name="price"
-        placeholder="Price"
-        required
-        class="w-full mb-3 p-3 border rounded-lg"
-      />
-
-      <input
-        type="number"
-        [(ngModel)]="formProduct.stock"
-        name="stock"
-        placeholder="Stock"
-        required
-        class="w-full mb-3 p-3 border rounded-lg"
-      />
-
-      <input
-        type="text"
-        [(ngModel)]="formProduct.images[0]"
-        name="image"
-        placeholder="Image URL"
-        class="w-full mb-3 p-3 border rounded-lg"
-      />
-
-      <textarea
-        [(ngModel)]="formProduct.description"
-        name="description"
-        placeholder="Description"
-        rows="3"
-        class="w-full mb-3 p-3 border rounded-lg"
-      ></textarea>
-
-      <div class="flex space-x-4">
-        <button
-          type="submit"
-          class="bg-indigo-600 text-white px-6 py-2 rounded-lg shadow hover:bg-indigo-700 transition duration-300"
-        >
-          Save
-        </button>
-        <button
-          type="button"
-          (click)="cancelForm()"
-          class="bg-gray-400 text-white px-6 py-2 rounded-lg shadow hover:bg-gray-500 transition duration-300"
-        >
-          Cancel
-        </button>
-      </div>
-    </form>
-  </div>
-
- <div class="container mx-auto px-6 py-12">
-
-
-  <!-- Product Grid -->
-<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-  <div
-    *ngFor="let product of filteredProducts; trackBy: trackById"
-    class="rounded-3xl shadow-lg hover:shadow-2xl transition duration-500 transform hover:-translate-y-1 hover:scale-105 overflow-hidden"
-    
-  >
-    <!-- Image -->
-    <div class="relative group">
-      <img
-        [src]="product.images[0]"
-        alt="{{ product.name }}"
-        class="w-full h-64 object-cover transition duration-500 group-hover:scale-110"
-      />
-      <div
-        class="absolute top-3 right-3 bg-white bg-opacity-80 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full shadow-md"
-      >
-        In Stock: {{ product.stock }}
-      </div>
-    </div>
-
-    <!-- Content -->
-    <div class="p-6">
-      <h2
-        class="text-2xl font-bold text-gray-800 mb-3 hover:text-indigo-600 transition duration-300"
-        [ngStyle]="{
-          'font-weight': product.price > 2000 ? 'bold' : 'normal',
-          color: product.price > 2000 ? 'red' : 'inherit'
-        }"
-      >
-        {{ product.name }}
+  @if (showForm) {
+    <div class="mb-8 bg-white shadow-lg p-6 rounded-2xl">
+      <h2 class="text-2xl font-bold mb-4 text-indigo-600">
+        {{ editingProduct ? "Edit Product" : "Add New Product" }}
       </h2>
 
-      <p class="text-gray-600 text-sm mb-5 line-clamp-3">
-        {{ product.description }}
-      </p>
+      <form (ngSubmit)="saveProduct()" #productForm="ngForm">
+        <input
+          type="text"
+          [(ngModel)]="formProduct.name"
+          name="name"
+          placeholder="Product Name"
+          required
+          class="w-full mb-3 p-3 border rounded-lg"
+        />
 
-      <div class="flex items-center justify-between mb-5">
-        <div class="flex items-center space-x-4">
-          <span class="text-xl font-extrabold text-indigo-600">
-            ${{ product.price }}
-          </span>
-          <input
-            type="number"
-            min="1"
-            [max]="product.stock"
-            [value]="1"
-            class="w-20 px-3 py-2 text-sm text-gray-800 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300"
-            [disabled]="product.stock === 0"
-            #countInput
-          />
+        <input
+          type="number"
+          [(ngModel)]="formProduct.price"
+          name="price"
+          placeholder="Price"
+          required
+          class="w-full mb-3 p-3 border rounded-lg"
+        />
+
+        <input
+          type="number"
+          [(ngModel)]="formProduct.stock"
+          name="stock"
+          placeholder="Stock"
+          required
+          class="w-full mb-3 p-3 border rounded-lg"
+        />
+
+        <input
+          type="text"
+          [(ngModel)]="formProduct.images[0]"
+          name="image"
+          placeholder="Image URL"
+          class="w-full mb-3 p-3 border rounded-lg"
+        />
+
+        <textarea
+          [(ngModel)]="formProduct.description"
+          name="description"
+          placeholder="Description"
+          rows="3"
+          class="w-full mb-3 p-3 border rounded-lg"
+        ></textarea>
+
+        <div class="flex space-x-4">
+          <button
+            type="submit"
+            class="bg-indigo-600 text-white px-6 py-2 rounded-lg shadow hover:bg-indigo-700"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            (click)="cancelForm()"
+            class="bg-gray-400 text-white px-6 py-2 rounded-lg shadow hover:bg-gray-500"
+          >
+            Cancel
+          </button>
         </div>
-        <span
-          class="bg-green-200 text-green-800 text-xs font-semibold px-3 py-1 rounded-full shadow-sm"
-        >
-          {{ product.stock > 0 ? "In Stock" : "Out of Stock" }}
-        </span>
-      </div>
-
-      <button
-        class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 text-white font-semibold py-3 px-5 rounded-2xl shadow-md hover:from-indigo-600 hover:to-indigo-700 hover:shadow-lg transition duration-300"
-        [disabled]="product.stock === 0"
-        (click)="buy(countInput.value, product.price, product)"
-      >
-        {{ product.stock > 0 ? "Buy Now" : "Unavailable" }}
-      </button>
-       <br>
-       <br>
-      <button
-        class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 text-white font-semibold py-3 px-5 rounded-2xl shadow-md hover:from-indigo-600 hover:to-indigo-700 hover:shadow-lg transition duration-300"
-        [disabled]="product.stock === 0"
-      >
-        {{ product.stock > 0 ? "Add To Cart" : "Unavailable" }}
-      </button>
-
-      <!-- Edit / Delete Buttons -->
-      <div class="flex justify-between mt-4 space-x-2">
-        <button
-          class="w-1/2 bg-yellow-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-yellow-600 transition duration-300"
-          (click)="editProduct(product)"
-        >
-          Edit
-        </button>
-
-        <button
-          class="w-1/2 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-red-600 transition duration-300"
-          (click)="deleteProduct(product._id)"
-        >
-          Delete
-        </button>
-      </div>
+      </form>
     </div>
+  }
+
+  <!-- Product Grid -->
+  <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    @for (product of filteredProducts; track trackById($index, product)) {
+      <div
+        class="rounded-3xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 hover:scale-105 overflow-hidden"
+      >
+        <!-- Image -->
+        <div class="relative group">
+          <img
+            [src]="product.images[0]"
+            alt="{{ product.name }}"
+            class="w-full h-64 object-cover transition group-hover:scale-110"
+          />
+          <div
+            class="absolute top-3 right-3 bg-white bg-opacity-80 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full shadow-md"
+          >
+            In Stock: {{ product.stock }}
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+          <h2
+            class="text-2xl font-bold text-gray-800 mb-3 hover:text-indigo-600"
+            [ngStyle]="{
+              'font-weight': product.price > 2000 ? 'bold' : 'normal',
+              color: product.price > 2000 ? 'red' : 'inherit'
+            }"
+          >
+            {{ product.name }}
+          </h2>
+
+          <p class="text-gray-600 text-sm mb-5 line-clamp-3">
+            {{ product.description }}
+          </p>
+
+          <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center space-x-4">
+              <span class="text-xl font-extrabold text-indigo-600">
+                ${{ product.price }}
+              </span>
+              <input
+                type="number"
+                min="1"
+                [max]="product.stock"
+                [value]="1"
+                class="w-20 px-3 py-2 text-sm text-gray-800 bg-gray-100 border rounded-lg"
+                [disabled]="product.stock === 0"
+                #countInput
+              />
+            </div>
+            <span
+              class="bg-green-200 text-green-800 text-xs font-semibold px-3 py-1 rounded-full shadow-sm"
+            >
+              {{ product.stock > 0 ? "In Stock" : "Out of Stock" }}
+            </span>
+          </div>
+
+          <button
+            class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 text-white font-semibold py-3 px-5 rounded-2xl shadow-md hover:from-indigo-600 hover:to-indigo-700"
+            [disabled]="product.stock === 0"
+            (click)="buy(+countInput.value, product.price, product)"
+          >
+            {{ product.stock > 0 ? "Buy Now" : "Unavailable" }}
+          </button>
+
+          <div class="flex justify-between mt-4 space-x-2">
+            <button
+              class="w-1/2 bg-yellow-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-yellow-600"
+              (click)="editProduct(product)"
+            >
+              Edit
+            </button>
+            <button
+              class="w-1/2 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-red-600"
+              (click)="deleteProduct(product._id)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    }
   </div>
 </div>
