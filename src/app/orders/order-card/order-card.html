@@ -19,5 +19,10 @@
     </div> 
     @for(item of order.items;track item.product){
     <app-order-detail-item [item]="item"></app-order-detail-item>
-    }      
+    }
+    <div class="flex justify-end mt-6 pt-4 border-t border-gray-200">
+    <p class="text-lg font-bold text-gray-900">
+      Total: $ {{ order.totalPrice }}
+    </p>
+  </div>      
 </div>
