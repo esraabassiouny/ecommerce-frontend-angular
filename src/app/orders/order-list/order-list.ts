@@ -20,6 +20,8 @@ export class OrderList implements OnInit{
       next: (data)=>{
         console.log(data);        
         this.orders = data;
+        console.log(this.orders);        
+
       },
       error: (err)=>{
         console.log("Error in fetching orders "+ err);

@@ -1,46 +1,33 @@
-// export class CartItem{
-//     constructor
-//     (
-//         public id:number,
-//         public product: {
-//             name: string,
-//             description: string,
-//             price: number,
-//             category: string,
-//             imageUrl: string,
-//         },
-//         public quantity: number,
-//         public price: number,
-//     )
-//     {}
-// }
-
-export interface CartProduct {
-  id: number;
+export interface IProduct {
+  _id: string;           
   name: string;
-  description: string;
+  description?: string;
   price: number;
-  quantity: number;
-  imageUrl: string;
-  inStock: boolean;
+  stock: number;
+  images: string[];      
+  isFeatured: boolean;
+  categoryId: string;    
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 
-
-// Represents a single item in the cart
-export interface CartItem {
-  product: string;      // MongoDB ObjectId as string (ref: Product)
+export interface ICartItem {
+  product: IProduct;   
   quantity: number;
-  price: number;
+  price: number;      
 }
 
-// Represents the entire cart
+
 export class Cart {
   constructor(
-    public id:string,
-    public userId: string,       // ObjectId of the user
-    public items: CartItem[],    // Array of CartItem
-    public totalPrice: number,   // Calculated total
-    public updatedAt?: Date      // Optional, since backend auto-generates it
+    public id: string,
+    public userId: string,       
+    public items: ICartItem[],   
+    public totalPrice: number,  
+    public shipping: number,    
+    public tax: number,        
+    public orderTotal: number,  
+    public updatedAt?: Date      
   ) {}
 }

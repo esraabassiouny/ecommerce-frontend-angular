@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Cart, CartProduct } from '../../models/cart';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ICartItem } from '@models/cart';
 
 @Component({
   selector: 'app-cart-item',
@@ -10,17 +10,17 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './cart-item.css'
 })
 export class CartItem {
-  @Input() item!:CartProduct;
+  @Input() item!: ICartItem;
   
-  @Output() remove = new EventEmitter<number>(); 
+  @Output() remove = new EventEmitter<string>(); 
+  @Output() update = new EventEmitter<{ productId: string, quantity: number }>();
 
-  onRemove() {
-    this.remove.emit(this.item.id);   
+
+  onQuantityChange() {
+    this.update.emit({ productId: this.item.product._id, quantity: this.item.quantity });
   }
 
-    resetProduct() {
-    this.item.quantity = 1;
+    onRemove() {
+    this.remove.emit(this.item.product._id);
   }
 }
-
-

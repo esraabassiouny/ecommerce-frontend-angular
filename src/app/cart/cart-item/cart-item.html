@@ -1,38 +1,36 @@
-  <!-- Left Section -->
-  <div class="py-6 border-t border-gray-300">
-  <div class="flex items-center gap-6">
-    <img [src]="item.imageUrl" [alt]="item.name" class="w-24 h-24 rounded-lg object-cover" />
+<div class="py-6 border-t border-gray-300 flex items-center justify-between gap-6">
+  
+  <!-- Left: Image -->
+  <img [src]="item.product.images[0]" [alt]="item.product.name"
+       class="w-24 h-24 rounded-lg object-cover" />
 
-    <div>
-      <h3 class="text-lg font-semibold">{{ item.name }}</h3>
-      <p class="text-sm text-gray-500">{{ item.description }}</p>
+  <!-- Middle: Product Info -->
+  <div class="flex-1">
+    <h3 class="text-lg font-semibold">{{ item.product.name }}</h3>
+    <p class="text-sm text-gray-500">{{ item.product.description }}</p>
 
-      <p *ngIf="item.inStock" class="text-green-600 text-sm flex items-center gap-1">
-        ✔ In stock
-      </p>
-      <p *ngIf="!item.inStock" class="text-red-600 text-sm flex items-center gap-1">
-        ✖ Out of stock
-      </p>
-    </div>
+    <p *ngIf="item.product.stock" class="text-green-600 text-sm flex items-center gap-1">
+      ✔ In stock
+    </p>
+    <p *ngIf="!item.product.stock" class="text-red-600 text-sm flex items-center gap-1">
+      ✖ Out of stock
+    </p>
   </div>
 
-  <!-- Right Section -->
-  <div class="flex flex-col items-end gap-2">
-    <div class="flex items-center gap-8">
-      <div class="flex flex-col">
-        <select [(ngModel)]="item.quantity" class="border rounded-md px-2 py-1">
+  <div class="flex items-center gap-8">
+    
+    <div class="flex flex-col items-center">
+      <select [(ngModel)]="item.quantity"
+              (ngModelChange)="onQuantityChange()"
+              class="border rounded-md px-2 py-1">
         <option *ngFor="let qty of [1, 2, 3, 4, 5]" [value]="qty">{{ qty }}</option>
-        </select>
-        <button (click)="onRemove()" class="text-indigo-600 text-sm">Remove</button>
-      </div>
-      <p class="font-semibold ml-24" [ngClass]="{
-      'bg-green-100': item.price < 500,
-      'bg-yellow-100': item.price >= 500 && item.price <= 2000,
-      'bg-red-100': item.price > 2000
-      }" [ngStyle]="{
-            'font-weight': item.price > 2000 ? 'bold' : 'normal',
-            'color': item.price > 2000 ? 'red' : 'black'
-      }">${{ item.price }}</p>
+      </select>
+      <button class="text-indigo-600 text-sm mt-1" (click)="onRemove()">Remove</button>
     </div>
+
+    <!-- Price -->
+    <p class="font-semibold bg-green-100 px-3 py-1 rounded">
+      ${{ item.price }}
+    </p>
   </div>
 </div>
