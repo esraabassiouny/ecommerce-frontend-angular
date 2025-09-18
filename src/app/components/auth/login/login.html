@@ -19,6 +19,10 @@
              class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" required>
     </div>
 
+    @if (errorMessage) {
+      <div class="text-red-500 text-sm">{{ errorMessage }}</div>
+    }
+
     <button type="submit"
       class="w-full bg-indigo-500 text-white rounded-md py-2 hover:bg-indigo-600">
       Login

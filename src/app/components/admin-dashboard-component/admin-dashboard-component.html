@@ -1,0 +1,59 @@
+    <div class="p-6">
+      <h1 class="text-2xl font-bold mb-4">Admin Dashboard</h1>
+
+      <!-- Dropdown to pick which section to show -->
+      <select (change)="onSelect($event)" class="border px-2 py-1 mb-4">
+        <option value="">Select section</option>
+        <option value="users">Users</option>
+        <option value="products">Products</option>
+        <option value="orders">Orders</option>
+      </select>
+
+      @switch (selectedSection) {
+        @case ('users') {
+          <section>
+            <h2 class="text-xl font-semibold mb-2">Users</h2>
+          @if (users.length) {
+              <ul>
+                @for (user of users; track user.id) {
+                  <li>{{ user.name }} — {{ user.email }}</li>
+                }
+              </ul>
+            } @else {
+              <p>No users found.</p>
+            }
+          </section>
+        }
+        @case ('products') {
+          <section>
+            <h2 class="text-xl font-semibold mb-2">Products</h2>
+            @if (products.length) {
+              <ul>
+                @for (product of products; track product.id) {
+                  <li>{{ product.name }} — ${{ product.price }}</li>
+                }
+              </ul>
+            } @else {
+              <p>No products found.</p>
+            }
+          </section>
+        }
+        @case ('orders') {
+          <section>
+            <h2 class="text-xl font-semibold mb-2">Orders</h2>
+            @if (orders.length) {
+              <ul>
+                @for (order of orders; track order.id) {
+                  <li>Order #{{ order.id }} — Total: ${{ order.total }}</li>
+                }
+              </ul>
+            } @else {
+              <p>No orders found.</p>
+            }
+          </section>
+        }
+        @default {
+          <p>Please select a section from the dropdown.</p>
+        }
+      }
+    </div>

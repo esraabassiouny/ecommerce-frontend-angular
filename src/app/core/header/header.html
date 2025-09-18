@@ -3,39 +3,44 @@
   [ngClass]="{ '-translate-y-full': isHidden, 'translate-y-0': !isHidden }"
 >
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Logo -->
     <div class="text-xl font-bold text-indigo-600">
       MyShop
     </div>
 
+    <!-- Navigation Links -->
     <nav class="flex gap-6 font-medium">
-      <div
-        routerLink="/"
-        class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600"
-      >
+      <div routerLink="/" class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600">
         Home
       </div>
-      <div
-        routerLink="/products"
-        class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600"
-      >
+      <div routerLink="/products" class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600">
         Products
       </div>
-      <div
-        routerLink="/cart"
-        class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600"
-      >
+      <div routerLink="/cart" class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600">
         Cart
       </div>
-        <div
-        routerLink="/orders"
-        class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600"
-      >
+      <div routerLink="/orders" class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600">
         Orders
       </div>
     </nav>
 
-    <div class="text-gray-600 font-semibold">
-      Welcome, Esraa
-    </div>
+    <!-- Login / Welcome + Logout -->
+    @if (isLoggedIn) {
+      <div class="flex items-center gap-4 text-gray-600 font-semibold">
+        <span>Welcome, {{ username }}</span>
+        <button (click)="logout()" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+          Logout
+        </button>
+      </div>
+    } @else {
+      <div class="flex items-center gap-4">
+        <a routerLink="/login" class="bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-600">
+          Login
+        </a>
+        <a routerLink="/register" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
+          Register
+        </a>
+      </div>
+    }
   </div>
 </header>
