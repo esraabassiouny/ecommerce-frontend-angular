@@ -1,6 +1,8 @@
+import { IProduct } from "./cart";
+
 // order.model.ts
 export interface OrderItem {
-  product: string;       // Product ID (ObjectId as string)
+  product: IProduct;       // Product ID (ObjectId as string)
   quantity: number;
   price: number;
 }
@@ -17,14 +19,15 @@ export type PaymentMethod = 'COD' | 'Credit Card' | 'PayPal';
 export type OrderStatus = 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
 
 export interface Order {
-  _id?: string;                // Order ID
-  user: string;                // User ID (ObjectId as string)
+  _id?: string;               
+  user: string;                
   items: OrderItem[];
   shippingAddress: string;
   paymentMethod: PaymentMethod;
   shippingPrice: number;
   totalPrice: number;
   status: OrderStatus;
-  createdAt?: string;           // timestamps
+  deliveryDate: string; 
+  createdAt?: string;          
   updatedAt?: string;
 }

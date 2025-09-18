@@ -10,6 +10,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Iproduct } from '../models/iproduct';
+import { ServiceCart } from '@services/service-cart';
 
 @Component({
   selector: 'app-products',
@@ -233,7 +234,7 @@ export class Products implements OnInit, OnChanges {
   editingProduct: Iproduct | null = null;
   formProduct: Iproduct = this.getEmptyProduct();
 
-  constructor() {
+  constructor(private cartService: ServiceCart) {
     this.filteredProducts = this.products;
   }
 
@@ -337,4 +338,17 @@ export class Products implements OnInit, OnChanges {
       isFeatured: false,
     };
   }
+
+  onAddToCart(productId: string, quantity: string) {
+    const qty = parseInt(quantity, 10);
+    this.cartService.addToCart(productId, qty).subscribe({
+      next: (cart) => {
+      console.log("✅ Product added successfully:", cart);
+    },
+    error: (err) => {
+      console.error("❌ Failed to add product:", err);
+    }
+    });
+}
+
 }

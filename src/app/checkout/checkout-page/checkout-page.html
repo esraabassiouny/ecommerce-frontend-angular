@@ -1,0 +1,54 @@
+<div class="max-w-lg mx-auto p-8 bg-white rounded-2xl shadow-lg">
+  <h1 class="text-3xl font-bold text-center text-indigo-600 mb-8">
+    Checkout
+  </h1>
+
+  <!-- Shipping Address -->
+  <h2 class="text-lg font-semibold mb-2">Shipping Address</h2>
+  <div class="space-y-3 mb-6">
+    <input type="text" placeholder="Address" [(ngModel)]="shippingAddress.address"
+      class="w-full border rounded-lg px-4 py-2" />
+    <div class="grid grid-cols-3 gap-3">
+      <input type="text" placeholder="City" [(ngModel)]="shippingAddress.city"
+        class="border rounded-lg px-4 py-2" />
+      <input type="text" placeholder="State/Province" [(ngModel)]="shippingAddress.state"
+        class="border rounded-lg px-4 py-2" />
+      <input type="text" placeholder="Postal Code" [(ngModel)]="shippingAddress.postalCode"
+        class="border rounded-lg px-4 py-2" />
+    </div>
+  </div>
+
+  <!-- Payment Method -->
+  <h2 class="text-lg font-semibold mb-2">Payment Method</h2>
+  <select [(ngModel)]="paymentMethod" class="w-full border rounded-lg px-4 py-2 mb-6">
+    <option value="COD">Cash on Delivery</option>
+    <option value="Credit Card">Credit Card</option>
+    <option value="PayPal">PayPal</option>
+  </select>
+
+  <!-- Price Summary -->
+  <div class="mb-6">
+    <p class="flex justify-between text-gray-600">
+      <span>Subtotal:</span>
+      <span>${{ itemsPrice }}</span>
+    </p>
+        <p class="flex justify-between text-gray-600">
+      <span>Shipping:</span>
+      <span>${{ shippingPrice }}</span>
+    </p>
+    <p class="flex justify-between text-gray-600">
+      <span>Tax:</span>
+      <span>${{ taxPrice }}</span>
+    </p>
+    <p class="flex justify-between font-bold text-lg">
+      <span>Order Total:</span>
+      <span>${{ totalPrice }}</span>
+    </p>
+  </div>
+
+  <!-- Place Order Button -->
+  <button (click)="placeOrder()"
+    class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700">
+    Place Order
+  </button>
+</div>

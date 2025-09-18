@@ -8,6 +8,9 @@ import { Logout } from './components/auth/logout/logout';
 import { AuthGuard } from './services/auth-guard';
 import { GuestGuard } from './services/guest-guard';
 import { Products } from './products/products';
+import { CheckoutPage } from './checkout/checkout-page/checkout-page';
+import { OrderSuccess } from './checkout/order-success/order-success';
+import { EmptyCart } from './cart/empty-cart/empty-cart';
 
 export const routes: Routes =
 [
@@ -16,6 +19,9 @@ export const routes: Routes =
     { path: 'register', component: Register, canActivate: [GuestGuard] },
     { path: 'logout', component: Logout, canActivate: [AuthGuard] },
     { path: 'cart', component: CartPage },
+    { path: 'empty-cart', component: EmptyCart },
+    { path: 'checkout', component: CheckoutPage },
+    { path: 'order-success', component: OrderSuccess },
     { path: 'orders', component: OrderList, canActivate: [AuthGuard] },
      {path:'products' , component:Products},
 ];

@@ -6,15 +6,28 @@ import { Order } from '../models/order';
 @Injectable({
   providedIn: 'root',
 })
+export class ServiceOrder {
+  private apiUrl = 'http://localhost:5000/api/orders';
 
-export class ServiceOrder{
+  constructor(private http: HttpClient) {}
 
-    constructor(private http: HttpClient){}
-    private apiUrl = 'http://localhost:5000/api/orders/';
+  // ✅ Get all orders
+  getOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>(this.apiUrl);
+  }
 
-    getOrdersByUserId(id: any): Observable<Order[]>
-    {
-        const orders = this.http.get<Order[]>(`http://localhost:5000/api/orders/${id}`); 
-        return orders;
-    }
+  // ✅ Get order by ID
+  getOrderById(id: string): Observable<Order> {
+    return this.http.get<Order>(`${this.apiUrl}/${id}`);
+  }
+
+  // ✅ Create new order
+  createOrder(orderData:any): Observable<Order> {
+    return this.http.post<Order>(`${this.apiUrl}/create-order`, orderData);
+  }
+
+  // ✅ Cancel order
+  cancelOrder(id: string): Observable<Order> {
+    return this.http.put<Order>(`${this.apiUrl}/cancel-order/${id}`, {});
+  }
 }

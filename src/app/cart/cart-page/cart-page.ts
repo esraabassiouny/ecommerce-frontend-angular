@@ -3,18 +3,17 @@ import { Cart } from '../../models/cart';
 import { FormsModule } from '@angular/forms';  
 import { CartItem} from '../cart-item/cart-item';
 import { ServiceCart } from '../../services/service-cart';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart-page',
-  imports: [FormsModule, CartItem],
+  imports: [FormsModule, CartItem, RouterLink],
   templateUrl: './cart-page.html',
   styleUrls: ['./cart-page.css']
 })
 export class CartPage implements OnInit {
 
-  constructor(private cartService: ServiceCart) {}
-
-  userId: string = "68bd22017307f5712865691e";
+  constructor(private cartService: ServiceCart, private router: Router) {}
 
   cart!: Cart 
   header: string = "Shopping Cart";
@@ -24,14 +23,16 @@ export class CartPage implements OnInit {
 }
 
 loadCart() {
-    this.cartService.getCartByUserId(this.userId).subscribe({
+    this.cartService.getCart().subscribe({
       next: (data) => {
         console.log("Backend cart:", data);
         this.cart = data
+        this.cartService.setCartSummary(this.cart);
       },
       error: (err) => {
         if (err.status === 404) {
         console.log("Cart not found for this user (404).");
+        this.router.navigate(['/empty-cart']); 
         }else
         console.log("Error in fetching cart:", err);
       }
@@ -46,7 +47,7 @@ loadCart() {
   this.cart.items = this.cart.items.filter(item => item.product._id !== productId);
 
   // Call backend
-  this.cartService.removeCartItem(this.userId, productId).subscribe({
+  this.cartService.removeCartItem(productId).subscribe({
     next: (data) => {
       console.log('Backend confirmed:', data);
       this.loadCart();
@@ -62,7 +63,7 @@ loadCart() {
 
 
   onUpdate(event: { productId: string, quantity: number }){
-  this.cartService.updateCartItem(this.userId, event.productId, event.quantity).subscribe({
+  this.cartService.updateCartItem(event.productId, event.quantity).subscribe({
     next: (data) => {
       console.log('Backend confirmed:', data);
       this.loadCart();

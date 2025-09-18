@@ -12,16 +12,15 @@ import { Order } from '../../models/order';
 export class OrderList implements OnInit{
 
   constructor(private orderService: ServiceOrder){}
-  userId:any = "68bd2d8494e30b8403859f1c";
+
   orders:Order[] = [];
 
   ngOnInit(): void {
-    this.orderService.getOrdersByUserId(this.userId).subscribe({
+    this.orderService.getOrders().subscribe({
       next: (data)=>{
         console.log(data);        
         this.orders = data;
         console.log(this.orders);        
-
       },
       error: (err)=>{
         console.log("Error in fetching orders "+ err);

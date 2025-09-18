@@ -181,6 +181,14 @@
       >
         {{ product.stock > 0 ? "Buy Now" : "Unavailable" }}
       </button>
+       <br>
+       <br>
+      <button
+        class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 text-white font-semibold py-3 px-5 rounded-2xl shadow-md hover:from-indigo-600 hover:to-indigo-700 hover:shadow-lg transition duration-300"
+        [disabled]="product.stock === 0"
+      >
+        {{ product.stock > 0 ? "Add To Cart" : "Unavailable" }}
+      </button>
 
       <!-- Edit / Delete Buttons -->
       <div class="flex justify-between mt-4 space-x-2">
