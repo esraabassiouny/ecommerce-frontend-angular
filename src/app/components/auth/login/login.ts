@@ -20,18 +20,12 @@ export class Login {
   constructor(private authService: AuthService) {}
 
   onLogin() {
-    const payload: LoginRequest = {
-      email: this.email,
-      password: this.password
-    };
-
+    const payload = { email: this.email, password: this.password };
     this.authService.login(payload).subscribe({
-      next: (res) => {
-        console.log('Login successful', res);
-        localStorage.setItem('token', res.token); 
-      },
-      error: (err) => console.error('Login failed', err)
+      next: () => console.log('Login successful'),
+      error: (err) => console.error('Login failed', err),
     });
   }
+
 
 }
