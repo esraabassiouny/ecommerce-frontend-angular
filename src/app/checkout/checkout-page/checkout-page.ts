@@ -42,10 +42,9 @@ export class CheckoutPage {
 
 
   placeOrder() {
-    this.router.navigate(['/order-success']);
     this.orderService.createOrder(this.orderData).subscribe({
       next:(order)=>{
-        console.log(order)
+        console.log("Order:" , order)
         this.router.navigate(['/order-success']);
 
       },

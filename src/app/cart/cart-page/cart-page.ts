@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { CartItem} from '../cart-item/cart-item';
 import { ServiceCart } from '../../services/service-cart';
 import { Router, RouterLink } from '@angular/router';
+import { LoadingSpinner } from 'app/shared/loading-spinner/loading-spinner';
 
 @Component({
   selector: 'app-cart-page',
-  imports: [FormsModule, CartItem, RouterLink],
+  imports: [FormsModule, CartItem, RouterLink, LoadingSpinner],
   templateUrl: './cart-page.html',
   styleUrls: ['./cart-page.css']
 })
@@ -17,19 +18,23 @@ export class CartPage implements OnInit {
 
   cart!: Cart 
   header: string = "Shopping Cart";
+  loading: boolean = true;
 
   ngOnInit(): void {
   this.loadCart();
 }
 
 loadCart() {
+  this.loading = true;
     this.cartService.getCart().subscribe({
       next: (data) => {
-        console.log("Backend cart:", data);
+        console.log("Cart:", data);
         this.cart = data
         this.cartService.setCartSummary(this.cart);
+        this.loading = false;
       },
       error: (err) => {
+        this.loading = false;
         if (err.status === 404) {
         console.log("Cart not found for this user (404).");
         this.router.navigate(['/empty-cart']); 
@@ -43,13 +48,11 @@ loadCart() {
  onRemove(productId: string) {
   const oldItems = [...this.cart.items];
 
-  // update ui
   this.cart.items = this.cart.items.filter(item => item.product._id !== productId);
 
-  // Call backend
   this.cartService.removeCartItem(productId).subscribe({
     next: (data) => {
-      console.log('Backend confirmed:', data);
+      console.log('Cart:', data);
       this.loadCart();
       // this.cart = data;
     },
@@ -65,7 +68,7 @@ loadCart() {
   onUpdate(event: { productId: string, quantity: number }){
   this.cartService.updateCartItem(event.productId, event.quantity).subscribe({
     next: (data) => {
-      console.log('Backend confirmed:', data);
+      console.log('Cart:', data);
       this.loadCart();
       //this.cart = data;
     },

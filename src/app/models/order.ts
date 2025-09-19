@@ -25,6 +25,7 @@ export interface Order {
   shippingAddress: string;
   paymentMethod: PaymentMethod;
   shippingPrice: number;
+  tax: number,
   totalPrice: number;
   status: OrderStatus;
   deliveryDate: string; 

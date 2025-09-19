@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ProductService } from '../services/productService';
 import { Iproduct } from '../models/iproduct';
 import { Icategory } from '@models/iCategory';
+import { ServiceCart } from '@services/service-cart';
+import { Cart } from '@models/cart';
 
 @Component({
   selector: 'app-products',
@@ -23,7 +25,7 @@ export class Products {
 
   formProduct: Iproduct = this.getEmptyProduct();
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private cartService: ServiceCart) {
     this.loadProducts();
   }
 
@@ -135,5 +137,16 @@ export class Products {
 
   buy(count: number, price: number, product: Iproduct): void {
     console.log(`Buying ${count} of ${product.name} for $${price * count}`);
+  }
+
+  addToCart(productId: string, quantity: number) {
+    this.cartService.addToCart(productId, quantity).subscribe({
+      next: (cart) => {
+        console.log('Item added successfully', cart);
+      },
+      error: (err) => {
+        console.error('Error adding item', err);
+      },
+    });
   }
 }

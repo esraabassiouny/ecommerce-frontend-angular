@@ -172,6 +172,16 @@
             {{ product.stock > 0 ? "Buy Now" : "Unavailable" }}
           </button>
 
+          <br><br>
+
+          <button
+            class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 text-white font-semibold py-3 px-5 rounded-2xl shadow-md hover:from-indigo-600 hover:to-indigo-700"
+            [disabled]="product.stock === 0"
+            (click)="addToCart(product._id, +countInput.value)"
+          >
+            {{ product.stock > 0 ? "Add To Cart" : "Unavailable" }}
+          </button>
+
           <div class="flex justify-between mt-4 space-x-2">
             <button
               class="w-1/2 bg-yellow-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-yellow-600"

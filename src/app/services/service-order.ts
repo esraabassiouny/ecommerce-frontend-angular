@@ -23,7 +23,10 @@ export class ServiceOrder {
     return this.http.post<Order>(`${this.apiUrl}/create-order`, orderData);
   }
 
-  cancelOrder(id: string): Observable<Order> {
-    return this.http.put<Order>(`${this.apiUrl}/cancel-order/${id}`, {});
+  cancelOrder(id: string): Observable<{ message: string; order: Order }> {
+    return this.http.put<{ message: string; order: Order }>(
+      `${this.apiUrl}/cancel-order/${id}`,
+      {}
+    );
   }
 }

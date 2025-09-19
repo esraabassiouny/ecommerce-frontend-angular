@@ -17,10 +17,7 @@ export class ServiceCart {
   }
 
   addToCart(productId: any, quantity: number): Observable<Cart> {
-    return this.http.post<{ cart: Cart }>(`${this.apiUrl}add`, {
-      productId,
-      quantity,
-    }).pipe(map(res => res.cart));
+    return this.http.post<Cart>(`${this.apiUrl}add`, { productId, quantity });
   }
 
   removeCartItem(productId: any): Observable<Cart> {

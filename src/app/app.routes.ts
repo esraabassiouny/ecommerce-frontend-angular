@@ -12,6 +12,7 @@ import { OrderSuccess } from './checkout/order-success/order-success';
 import { EmptyCart } from './cart/empty-cart/empty-cart';
 import { Home } from './core/home/home';
 import { AdminDashboardComponent } from '@components/admin-dashboard-component/admin-dashboard-component';
+import { NoOrders } from './orders/no-orders/no-orders';
 
 export const routes: Routes =
 [
@@ -23,6 +24,7 @@ export const routes: Routes =
     { path: 'admin/dashboard', component: AdminDashboardComponent },
     { path: 'cart', component: CartPage },
     { path: 'empty-cart', component: EmptyCart },
+    { path: 'no-orders', component: NoOrders },
     { path: 'checkout', component: CheckoutPage },
     { path: 'order-success', component: OrderSuccess },
     { path: 'orders', component: OrderList, canActivate: [AuthGuard] },
