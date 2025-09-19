@@ -80,4 +80,19 @@ loadCart() {
   });
 } 
 
+  onClear(){
+    this.loading = true;
+    this.cartService.clearCart().subscribe({
+    next: (data) => {
+      console.log('Cart:', data.cart);
+      this.loadCart();
+    },
+    error: (err) => {
+      console.error('Clear failed:', err);
+      this.loadCart();
+    }
+  });
+} 
+
+
 }

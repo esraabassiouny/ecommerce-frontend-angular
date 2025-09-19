@@ -26,9 +26,8 @@ export class ServiceCart {
     ).pipe(map(res => res.cart));
   }
 
-  clearCart(): Observable<Cart> {
-    return this.http.delete<{ cart: Cart }>(`${this.apiUrl}clear`)
-      .pipe(map(res => res.cart));
+  clearCart():  Observable<{ message: string; cart: Cart }>{
+    return this.http.delete<{ message: string; cart: Cart }>(`${this.apiUrl}clear`);
   }
 
   updateCartItem(productId: any, quantity: number): Observable<Cart> {
