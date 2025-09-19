@@ -6,6 +6,7 @@ import { Iproduct } from '../models/iproduct';
 import { Icategory } from '@models/iCategory';
 import { ServiceCart } from '@services/service-cart';
 import { Cart } from '@models/cart';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -25,7 +26,7 @@ export class Products {
 
   formProduct: Iproduct = this.getEmptyProduct();
 
-  constructor(private productService: ProductService, private cartService: ServiceCart) {
+  constructor(private productService: ProductService, private cartService: ServiceCart, private router:Router) {
     this.loadProducts();
   }
 
@@ -143,6 +144,7 @@ export class Products {
     this.cartService.addToCart(productId, quantity).subscribe({
       next: (cart) => {
         console.log('Item added successfully', cart);
+        this.router.navigate(['/cart'])
       },
       error: (err) => {
         console.error('Error adding item', err);
