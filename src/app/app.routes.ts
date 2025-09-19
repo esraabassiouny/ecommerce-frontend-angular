@@ -13,20 +13,20 @@ import { EmptyCart } from './cart/empty-cart/empty-cart';
 import { Home } from './core/home/home';
 import { AdminDashboardComponent } from '@components/admin-dashboard-component/admin-dashboard-component';
 import { NoOrders } from './orders/no-orders/no-orders';
+import { AdminGuard } from './services/admin/admin-guard';
 
-export const routes: Routes =
-[
-    
-    { path: '', component: Home },
-    { path: 'login', component: Login, canActivate: [GuestGuard] },
-    { path: 'register', component: Register, canActivate: [GuestGuard] },
-    { path: 'logout', component: Logout, canActivate: [AuthGuard] },
-    { path: 'admin/dashboard', component: AdminDashboardComponent },
-    { path: 'cart', component: CartPage },
-    { path: 'empty-cart', component: EmptyCart },
-    { path: 'no-orders', component: NoOrders },
-    { path: 'checkout', component: CheckoutPage },
-    { path: 'order-success', component: OrderSuccess },
-    { path: 'orders', component: OrderList, canActivate: [AuthGuard] },
-    { path: 'products' , component:Products },
+export const routes: Routes = [
+  { path: '', component: Home },
+  { path: 'login', component: Login, canActivate: [GuestGuard] },
+  { path: 'register', component: Register, canActivate: [GuestGuard] },
+  { path: 'logout', component: Logout, canActivate: [AuthGuard] },
+  { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AdminGuard] },
+  { path: 'cart', component: CartPage },
+  { path: 'empty-cart', component: EmptyCart },
+  { path: 'no-orders', component: NoOrders },
+  { path: 'checkout', component: CheckoutPage },
+  { path: 'order-success', component: OrderSuccess },
+  { path: 'orders', component: OrderList, canActivate: [AuthGuard] },
+  { path: 'products' , component: Products },
 ];
+

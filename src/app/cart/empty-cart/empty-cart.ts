@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-empty-cart',
+  imports: [],
   templateUrl: './empty-cart.html',
 })
 export class EmptyCart {
