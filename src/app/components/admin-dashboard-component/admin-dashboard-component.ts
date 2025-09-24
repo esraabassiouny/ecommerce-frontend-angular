@@ -33,7 +33,7 @@ export class AdminDashboardComponent implements OnInit {
   loadData(): void {
     this.adminService.getUsers().subscribe(data => this.users = data);
     this.productService.getProducts().subscribe(data => this.products = data); 
-    this.serviceOrder.getOrders().subscribe(data => this.orders = data);
+    this.adminService.getOrders().subscribe(data => this.orders = data);
   }
 
   onSelect(event: Event) {
@@ -89,4 +89,21 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
+
+orderStatuses = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
+
+updateOrderStatus(order: any, newStatus: string) {
+  const oldStatus = order.status;
+  order.status = newStatus;
+
+  this.adminService.updateOrderStatus(order._id, newStatus).subscribe({
+    next: () => {
+      console.log(`Order #${order._id} updated to ${newStatus}`);
+    },
+    error: err => {
+      console.error('Error updating order status:', err);
+      order.status = oldStatus;
+    }
+  });
+}
 }

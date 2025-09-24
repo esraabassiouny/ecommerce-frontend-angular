@@ -28,10 +28,10 @@ loadCart() {
   this.loading = true;
     this.cartService.getCart().subscribe({
       next: (data) => {
+        this.loading = false;
         console.log("Cart:", data);
         this.cart = data
         this.cartService.setCartSummary(this.cart);
-        this.loading = false;
       },
       error: (err) => {
         this.loading = false;
