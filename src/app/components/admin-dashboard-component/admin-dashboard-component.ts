@@ -19,6 +19,7 @@ export class AdminDashboardComponent implements OnInit {
   orders: any[] = [];
 
   editingUser: any = null;
+  editingProduct: any = null;
 
   constructor(
     private adminService: AdminService,
@@ -41,7 +42,6 @@ export class AdminDashboardComponent implements OnInit {
     this.selectedSection = value;
   }
 
-  // === user actions ===
   startEdit(user: any) {
     // clone user so changes don’t instantly show in the list
     this.editingUser = { ...user };
@@ -62,6 +62,7 @@ export class AdminDashboardComponent implements OnInit {
 
   cancelEdit() {
     this.editingUser = null;
+    this.editingProduct = null;
   }
 
   deleteUser(id: string) {
@@ -77,6 +78,23 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   // === product actions ===
+
+  startEditProduct(product: any) {
+    this.editingProduct = { ...product };
+  }
+
+  saveProduct() {
+    if (!this.editingProduct) return;
+
+    this.productService.updateProduct(this.editingProduct).subscribe({
+      next: () => {
+        console.log('Product updated');
+        this.editingProduct = null;
+        this.loadData();
+      },
+      error: err => console.error('Error updating product:', err),
+    });
+  }
 
   deleteProduct(id: string) {
     this.products = this.products.filter(p => p._id !== id);

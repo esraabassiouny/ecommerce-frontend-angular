@@ -71,4 +71,9 @@ export class AuthService {
     if (!token) return null;
     return this.helper.decodeToken(token)?.role || null;
   }
+
+setUsername(name: string) {
+  this.usernameSubject.next(name);
+}
+
 }

@@ -3,7 +3,6 @@
   [ngClass]="{ '-translate-y-full': isHidden, 'translate-y-0': !isHidden }"
 >
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-    <!-- Logo -->
     <div class="text-xl font-bold text-indigo-600">
       BlueCart
     </div>
@@ -23,7 +22,6 @@
         Orders
       </div>
 
-      <!-- 👇 Admin-only dashboard link -->
       @if (role === 'admin') {
         <div routerLink="/admin/dashboard" class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600">
           Dashboard
@@ -31,10 +29,12 @@
       }
     </nav>
 
-    <!-- Login / Welcome + Logout -->
     @if (isLoggedIn) {
       <div class="flex items-center gap-4 text-gray-600 font-semibold">
         <span>Welcome, {{ name }}</span>
+        <div routerLink="/profile" class="block py-2 pr-4 pl-3 text-indigo-600 rounded hover:text-black-600">
+          Profile
+        </div>
         <button (click)="logout()" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
           Logout
         </button>

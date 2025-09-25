@@ -18,13 +18,16 @@ export class Header {
   isHidden = false;
   private lastScrollTop = 0;
 
-  constructor(private auth: AuthService, private router: Router) {
-    this.auth.loggedIn$.subscribe((status) => {
-      this.isLoggedIn = status;
-      this.name = this.auth.getUsername();
-      this.role = this.auth.getUserRole();
-    });
-  }
+constructor(private auth: AuthService, private router: Router) {
+  this.auth.loggedIn$.subscribe((status) => {
+    this.isLoggedIn = status;
+  });
+
+  this.auth.username$.subscribe((name) => {
+    this.name = name;
+  });
+}
+
 
   logout() {
     this.auth.logout().subscribe({
@@ -35,6 +38,7 @@ export class Header {
       error: (err) => console.error('Logout failed', err),
     });
   }
+
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

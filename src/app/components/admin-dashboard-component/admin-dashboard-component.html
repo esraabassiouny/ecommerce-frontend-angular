@@ -58,10 +58,16 @@
             ${{ product.price }}
           </span>
         </div>
-        <button class="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
-          (click)="deleteProduct(product._id)">
-          Delete
-        </button>
+        <div class="flex gap-2">
+          <button class="px-3 py-1 text-sm bg-yellow-500 text-white rounded hover:bg-yellow-600"
+            (click)="startEditProduct(product)">
+            Edit
+          </button>
+          <button class="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+            (click)="deleteProduct(product._id)">
+            Delete
+          </button>
+        </div>
       </li>
       }
     </ul>
@@ -112,6 +118,26 @@
       <div class="flex justify-end gap-2">
         <button class="px-3 py-1 bg-gray-400 text-white rounded" (click)="cancelEdit()">Cancel</button>
         <button class="px-3 py-1 bg-green-600 text-white rounded" (click)="saveUser()">Save</button>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Edit product modal -->
+  @if (editingProduct) {
+  <div class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg w-96 shadow-lg">
+      <h3 class="text-xl font-semibold mb-4">Edit Product</h3>
+
+      <label class="block mb-2 text-sm">Name</label>
+      <input [(ngModel)]="editingProduct.name" class="w-full border px-2 py-1 mb-3 rounded" />
+
+      <label class="block mb-2 text-sm">Price</label>
+      <input [(ngModel)]="editingProduct.price" class="w-full border px-2 py-1 mb-3 rounded" />
+
+      <div class="flex justify-end gap-2">
+        <button class="px-3 py-1 bg-gray-400 text-white rounded" (click)="cancelEdit()">Cancel</button>
+        <button class="px-3 py-1 bg-green-600 text-white rounded" (click)="saveProduct()">Save</button>
       </div>
     </div>
   </div>

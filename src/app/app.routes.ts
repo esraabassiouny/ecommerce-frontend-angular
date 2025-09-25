@@ -14,6 +14,7 @@ import { Home } from './core/home/home';
 import { AdminDashboardComponent } from '@components/admin-dashboard-component/admin-dashboard-component';
 import { NoOrders } from './orders/no-orders/no-orders';
 import { AdminGuard } from './services/admin/admin-guard';
+import { UserProfile } from './components/user-profile/user-profile';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -28,5 +29,6 @@ export const routes: Routes = [
   { path: 'order-success', component: OrderSuccess },
   { path: 'orders', component: OrderList, canActivate: [AuthGuard] },
   { path: 'products' , component: Products },
+  { path: 'profile', component: UserProfile, canActivate: [AuthGuard] }
 ];
 
