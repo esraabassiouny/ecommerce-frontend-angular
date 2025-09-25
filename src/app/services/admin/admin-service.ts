@@ -26,5 +26,11 @@ export class AdminService {
     return this.http.delete(`${this.apiUrl}/users/${id}`);
   }
 
+  getOrders(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/orders`);
+  }
 
+  updateOrderStatus(id: string, newStatus:string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/orders/${id}`, {status :newStatus});
+  }
 }

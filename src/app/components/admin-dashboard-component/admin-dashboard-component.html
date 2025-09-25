@@ -82,12 +82,34 @@
     <h2 class="text-2xl font-semibold mb-4 text-indigo-600">Orders</h2>
     @if (orders.length) {
     <ul class="divide-y divide-gray-200">
-      @for (order of orders; track order.id) {
+      @for (order of orders; track order._id) {
       <li class="py-3 flex justify-between">
         <span class="font-medium text-gray-800">
-          Order #{{ order.id }}
+          Order #{{ order._id }}
         </span>
-        <span class="text-gray-600">Total: ${{ order.total }}</span>
+        <span class="text-gray-600">Total: ${{ order.totalPrice }}</span>
+ <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-full text-sm font-medium"
+              [ngClass]="{
+                'bg-yellow-200 text-yellow-800': order.status === 'Pending',
+                'bg-blue-200 text-blue-800': order.status === 'Processing',
+                'bg-purple-200 text-purple-800': order.status === 'Shipped',
+                'bg-green-200 text-green-800': order.status === 'Delivered',
+                'bg-red-200 text-red-800': order.status === 'Cancelled'
+              }">
+          {{ order.status }}
+        </span>
+
+        <select
+          [ngModel]="order.status"
+          (ngModelChange)="updateOrderStatus(order, $event)"
+          class="border rounded px-2 py-1"
+        >
+          <option *ngFor="let status of orderStatuses" [value]="status">
+            {{ status }}
+          </option>
+        </select>
+      </div>
       </li>
       }
     </ul>
