@@ -18,12 +18,21 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  private roleSubject = new BehaviorSubject<string | null>(this.getUserRole());
+  role$ = this.roleSubject.asObservable();
+
+  setRole(role: string | null) {
+    this.roleSubject.next(role);
+  }
+
+
   login(data: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, data).pipe(
       tap((res: any) => {
         localStorage.setItem('token', res.token);
         this.loggedInSubject.next(true);
         this.usernameSubject.next(this.getUsername());
+        this.setRole(this.getUserRole());
       })
     );
   }
@@ -37,6 +46,7 @@ export class AuthService {
         // Update reactive state
         this.loggedInSubject.next(true);
         this.usernameSubject.next(this.getUsername());
+        this.setRole(this.getUserRole());
       })
     );
   }
@@ -47,6 +57,7 @@ export class AuthService {
         localStorage.removeItem('token');
         this.loggedInSubject.next(false);
         this.usernameSubject.next(null);
+        this.setRole(null);
       })
     );
   }
@@ -72,8 +83,8 @@ export class AuthService {
     return this.helper.decodeToken(token)?.role || null;
   }
 
-setUsername(name: string) {
-  this.usernameSubject.next(name);
-}
-
+  setUsername(name: string) {
+    this.usernameSubject.next(name);
+    this.setRole(this.getUserRole());
+  }
 }

@@ -19,13 +19,9 @@ export class Header {
   private lastScrollTop = 0;
 
 constructor(private auth: AuthService, private router: Router) {
-  this.auth.loggedIn$.subscribe((status) => {
-    this.isLoggedIn = status;
-  });
-
-  this.auth.username$.subscribe((name) => {
-    this.name = name;
-  });
+  this.auth.loggedIn$.subscribe(status => this.isLoggedIn = status);
+  this.auth.username$.subscribe(name => this.name = name);
+  this.auth.role$.subscribe(role => this.role = role); 
 }
 
 
