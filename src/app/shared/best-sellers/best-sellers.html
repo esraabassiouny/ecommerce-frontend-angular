@@ -1,0 +1,76 @@
+<section class="py-10 bg-white text-gray-900">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+      <h2 class="text-3xl font-semibold">
+        Our <span class="text-indigo-600 font-bold">Best Sellers</span> Products
+      </h2>
+
+      <button
+        class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-medium transition whitespace-nowrap"
+      >
+        View All Products
+      </button>
+    </div>
+
+
+    <!-- Categories -->
+    <div class="flex flex-wrap gap-3 mb-10">
+      @for (cat of categories; track cat) {
+        <button
+          (click)="selectCategory(cat)"
+          [class.bg-indigo-600]="selectedCategory === cat"
+          [class.text-white]="selectedCategory === cat"
+          class="px-4 py-2 rounded-full border border-indigo-200 hover:bg-indigo-100 transition text-sm font-medium text-indigo-700"
+        >
+          {{ cat }}
+        </button>
+      }
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
+      @for (p of filteredProducts(); track p.id) {
+        <div
+          class="relative bg-white rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden"
+        >
+          <img [src]="p.image" alt="{{ p.title }}" class="w-full h-60 object-cover" />
+
+          <!-- Discount Badge -->
+          <span class="absolute top-4 left-4 bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+            {{ p.discount }}% off
+          </span>
+
+          <!-- Timer (optional)
+          @if (p.timer) {
+            <div class="absolute bottom-4 left-4 bg-indigo-800 bg-opacity-80 text-white rounded-lg px-3 py-2 text-xs flex space-x-1">
+              <span>{{ p.timer.days }}d</span>:
+              <span>{{ p.timer.hours }}h</span>:
+              <span>{{ p.timer.mins }}m</span>:
+              <span>{{ p.timer.secs }}s</span>
+            </div>
+          } -->
+
+          <!-- Product Info -->
+          <div class="p-5">
+            <p class="text-xs text-gray-400">{{ p.category }}</p>
+            <h3 class="text-lg font-semibold mt-1">{{ p.title }}</h3>
+
+            <div class="mt-2 flex items-center space-x-2">
+              <p class="text-indigo-600 font-semibold text-lg">
+                ${{ p.newPrice.toFixed(2) }}
+              </p>
+              <p class="line-through text-gray-400 text-sm">
+                ${{ p.oldPrice.toFixed(2) }}
+              </p>
+            </div>
+
+            <div class="text-sm text-gray-500 mt-2">
+              ⭐ {{ p.rating.toFixed(1) }}
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>

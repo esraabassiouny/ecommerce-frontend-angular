@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { BestSellers } from 'app/shared/best-sellers/best-sellers';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink],
+  imports: [RouterLink, BestSellers],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
