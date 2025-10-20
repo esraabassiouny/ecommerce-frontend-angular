@@ -26,7 +26,3 @@ Started as a team project; now being developed and extended individually.
 ---
 
 > This repository demonstrates **front-end development skills**, responsive design, and integration with a Node.js back-end API.
-
-
-## Project Structure
-
